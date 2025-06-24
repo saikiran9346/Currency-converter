@@ -7,9 +7,14 @@ var swapBtn = document.getElementById('swap-btn');
 var result = document.getElementById('result');
 var error = document.getElementById('error');
 
+// List of popular currencies to display (against INR)
+const POPULAR_CURRENCIES = ['USD', 'EUR', 'GBP', 'JPY', 'CAD', 'AUD', 'CNY'];
+const BASE_CURRENCY = 'INR';
+
 // Load currencies when page loads
 window.onload = function() {
     loadCurrencies();
+    fetchPopularRates();
 };
 
 // Convert button click
@@ -72,6 +77,53 @@ function loadCurrencies() {
     xhr.send();
 }
 
+// Fetch and display popular rates
+function fetchPopularRates() {
+    const xhr = new XMLHttpRequest();
+    xhr.open('GET', `https://api.frankfurter.app/latest?from=${BASE_CURRENCY}`);
+    xhr.onload = function() {
+        if (xhr.status === 200) {
+            try {
+                const data = JSON.parse(xhr.responseText);
+                const tableBody = document.querySelector('#rates-table tbody');
+                
+                if (!tableBody) return;
+                
+                tableBody.innerHTML = '';
+                
+                // Update heading
+                const heading = document.querySelector('.popular-rates h2');
+                if (heading) {
+                    heading.textContent = `📊 Popular Rates (1 ${BASE_CURRENCY})`;
+                }
+                
+                POPULAR_CURRENCIES.forEach(currency => {
+                    if (data.rates && data.rates[currency]) {
+                        const row = document.createElement('tr');
+                        row.innerHTML = `
+                            <td>${currency} - ${getCurrencyName(currency)}</td>
+                            <td>${data.rates[currency].toFixed(4)}</td>
+                        `;
+                        tableBody.appendChild(row);
+                    }
+                });
+            } catch (e) {
+                console.error('Error processing rates:', e);
+            }
+        }
+    };
+    xhr.onerror = function() {
+        console.error('Failed to fetch popular rates');
+    };
+    xhr.send();
+}
+
+// Helper function to get full currency name
+function getCurrencyName(code) {
+    const option = Array.from(fromCurrency.options).find(opt => opt.value === code);
+    return option ? option.text.split(' - ')[1] : code;
+}
+
 // Convert currency
 function convertCurrency() {
     var amountValue = parseFloat(amount.value);
@@ -132,3 +184,6 @@ function showError(message) {
         error.style.display = 'none';
     }, 5000);
 }
+
+// Auto-refresh popular rates every 5 minutes
+setInterval(fetchPopularRates, 5 * 60 * 1000);
