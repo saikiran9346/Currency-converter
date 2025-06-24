@@ -11,6 +11,7 @@ A sleek, responsive web-based currency converter that fetches real-time exchange
 - Clean, mobile-friendly UI with gradient background
 - Error handling and input validation
 - Keyboard support (press Enter to convert)
+- Display popular rates of 1 INR
 
 ## 🛠️ Tech Stack
 - **Frontend**: HTML5, CSS3, JavaScript (Vanilla JS)
@@ -24,7 +25,7 @@ A sleek, responsive web-based currency converter that fetches real-time exchange
 | **1. Enter Amount** | ![Enter Amount](./screenshots/enter-amount.png) |
 | **2. Select Currencies** | ![Select Currencies](./screenshots/select-currencies.png) |
 | **3. Conversion Result** | ![Result](./screenshots/result.png) |
-
+| **4. Popular rates** | ![Popular rates](./screenshots/popular-rates.png) |
 ## 🚀 Quick Start
 
 1. Clone the repo:
