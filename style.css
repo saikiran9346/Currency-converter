@@ -14,6 +14,14 @@ body {
   padding: 20px;
 }
 
+.container {
+  width: 100%;
+  max-width: 800px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
 .converter {
   background: rgba(255, 255, 255, 0.95);
   backdrop-filter: blur(10px);
@@ -21,14 +29,30 @@ body {
   border-radius: 20px;
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
   width: 100%;
-  max-width: 400px;
   text-align: center;
 }
 
-h1 {
-  margin-bottom: 30px;
+.popular-rates {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  padding: 25px;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+  width: 100%;
+}
+
+h1, h2 {
+  margin-bottom: 20px;
   color: #2c3e50;
+}
+
+h1 {
   font-size: 24px;
+}
+
+h2 {
+  font-size: 20px;
+  text-align: center;
 }
 
 input, select, button {
@@ -130,11 +154,27 @@ input[type="number"]::-webkit-inner-spin-button {
   display: block;
 }
 
-@media (max-width: 480px) {
-  .converter {
-    padding: 30px 20px;
-  }
+#rates-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 15px;
+}
 
+#rates-table th, #rates-table td {
+  padding: 12px;
+  text-align: left;
+  border-bottom: 1px solid #e0e6ed;
+}
+
+#rates-table tr:last-child td {
+  border-bottom: none;
+}
+
+@media (max-width: 768px) {
+  .container {
+    max-width: 400px;
+  }
+  
   .currency-row {
     flex-direction: column;
     gap: 10px;
